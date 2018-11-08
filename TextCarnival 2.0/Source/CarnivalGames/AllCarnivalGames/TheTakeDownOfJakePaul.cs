@@ -80,24 +80,17 @@ namespace TextCarnivalV2.Source.CarnivalGames.AllCarnivalGames
 
         public void placement(String[,] board)
         {
-            int r, c, n;
-            writeOut("Where will you place your letter? Ex. (player# row column (Row and Column must be c#))");
-            String[] place = Console.ReadLine().Split(' ');
+            int r, c;
+            writeOut("Where will you place your letter? Ex. (row,column)");
+            String[] place = Console.ReadLine().Split(',');
 
-            n = Convert.ToInt32(place[0]);
             r = Convert.ToInt32(place[1]);
             c = Convert.ToInt32(place[2]);
 
-            if (n == 1)
+            while( board[r, c] == " ")
             {
-                board[r, c] = "H ";
-            }
 
-            if (n == 2)
-            {
-                board[r, c] = "D ";
             }
-
 
             if (board[0, 0] == board[0, 1] && board[0, 0] != "_ ")
             {
