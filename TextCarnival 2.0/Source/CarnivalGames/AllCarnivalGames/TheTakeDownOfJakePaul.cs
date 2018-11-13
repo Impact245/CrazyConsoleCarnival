@@ -11,6 +11,7 @@ namespace TextCarnivalV2.Source.CarnivalGames.AllCarnivalGames
     {
 
         Boolean j = false;
+        int k = 1;
 
         public TheTakeDownOfJakePaul() : base()
         {
@@ -52,7 +53,8 @@ namespace TextCarnivalV2.Source.CarnivalGames.AllCarnivalGames
 
             while (j == false)
             {
-                placement(board);
+                placement(board, k);
+                k++;
                 clear();
                 for (int i = 0; i < board.GetLength(0); i++)
                 {
@@ -76,89 +78,51 @@ namespace TextCarnivalV2.Source.CarnivalGames.AllCarnivalGames
 
 
 
+
         }
 
-        public void placement(String[,] board)
+        public void placement(String[,] board, int k)
         {
             int r, c;
             writeOut("Where will you place your letter? Ex. (row,column)");
             String[] place = Console.ReadLine().Split(',');
 
-            r = Convert.ToInt32(place[1]);
-            c = Convert.ToInt32(place[2]);
+            r = Convert.ToInt32(place[0]);
+            c = Convert.ToInt32(place[1]);
 
-            while( board[r, c] == " ")
+            if(r < 0 || r >2 || c < 0 || c > 2)
             {
-
+                clear();
+                writeOut("Invalid move! Mmmmm Try Again!");
+                placement(board, k);
             }
-
-            if (board[0, 0] == board[0, 1] && board[0, 0] != "_ ")
+            else if( board[r, c] == "_ ")
             {
-                if (board[0, 1] == board[0, 2])
+                if (k % 2 == 1)
                 {
-                    j = true;
+                    board[r, c] = "H ";
+                }
+                else
+                {
+                    board[r, c] = "D ";
                 }
             }
-
-            if (board[1, 0] == board[1, 1] && board[1, 0] != "_ ")
+            else
             {
-                if (board[1, 1] == board[1, 2])
-                {
-                    j = true;
-                }
+                clear();
+                writeOut("Invalid move! Mmmmm Try Again!");
+                placement(board, k);
             }
 
-            if (board[2, 0] == board[2, 1] && board[2, 0] != "_ ")
+           for (int t = 0; t < board.GetLength(0); t++)
             {
-                if (board[2, 1] == board[2, 2])
+                for (int g = 0; g < board.GetLength(0); g++)
                 {
-                    j = true;
+                    if(board[t, g] != "_ ")
+                    {
+                        writeOut("Game over!!! Somebody Won!!!");
+                    }
                 }
-            }
-
-            if (board[0, 0] == board[1, 0] && board[0, 0] != "_ ")
-            {
-                if (board[1, 0] == board[2, 0])
-                {
-                    j = true;
-                }
-            }
-
-            if (board[0, 1] == board[1, 1] && board[0, 1] != "_ ")
-            {
-                if (board[1, 1] == board[2, 1])
-                {
-                    j = true;
-                }
-            }
-
-            if (board[0, 2] == board[1, 2] && board[0, 2] != "_ ")
-            {
-                if (board[1, 2] == board[2, 2])
-                {
-                    j = true;
-                }
-            }
-
-            if (board[0, 0] == board[1, 1] && board[0, 0] != "_ ")
-            {
-                if (board[1, 1] == board[2, 2])
-                {
-                    j = true;
-                }
-            }
-
-            if (board[0, 2] == board[1, 1] && board[0, 2] != "_ ")
-            {
-                if (board[1, 1] == board[2, 0])
-                {
-                    j = true;
-                }
-            }
-
-            if (board[0, 0] != "_ " && board[0, 1] != "_ " && board[0, 2] != "_ " && board[1, 0] != "_ " && board[1, 1] != "_ " && board[1, 2] != "_ " && board[2, 0] != "_ " && board[2, 1] != "_ " && board[2, 2] != "_ ")
-            {
-                j = true;
             }
 
         }
